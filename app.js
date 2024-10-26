@@ -44,27 +44,35 @@ async function fetchNBAOdds() {
 }
 
 function displayNBAOdds(games) {
-    nbaGamesElement.innerHTML = '';
-    favoriteTeamsElement.innerHTML = '';
+    // Create grid containers for both sections
+    const allGamesHTML = '<div class="games-grid">' + 
+        games.map(game => createGameCard(game)).join('') + 
+        '</div>';
     
-    games.forEach(game => {
-        const homeTeam = game.home_team;
-        const awayTeam = game.away_team;
-        const spread = game.bookmakers[0].markets[0].outcomes;
+    const favoriteGamesHTML = '<div class="games-grid">' +
+        games.filter(game => 
+            favoriteTeams.includes(game.home_team) || 
+            favoriteTeams.includes(game.away_team)
+        ).map(game => createGameCard(game)).join('') +
+        '</div>';
 
-        const gameInfo = `
-            <div>
-                <strong>${awayTeam} vs ${homeTeam}</strong><br>
+    nbaGamesElement.innerHTML = allGamesHTML;
+    favoriteTeamsElement.innerHTML = favoriteGamesHTML || 'No games for favorite teams today.';
+}
+
+function createGameCard(game) {
+    const homeTeam = game.home_team;
+    const awayTeam = game.away_team;
+    const spread = game.bookmakers[0].markets[0].outcomes;
+
+    return `
+        <div class="game-card">
+            <strong>${awayTeam} vs ${homeTeam}</strong>
+            <div class="spread">
                 Spread: ${spread[0].name}: ${spread[0].point} | ${spread[1].name}: ${spread[1].point}
             </div>
-            <hr>
-        `;
-        nbaGamesElement.innerHTML += gameInfo;
-
-        if (favoriteTeams.includes(homeTeam) || favoriteTeams.includes(awayTeam)) {
-            favoriteTeamsElement.innerHTML += gameInfo;
-        }
-    });
+        </div>
+    `;
 }
 
 // Initial fetch of NBA odds
