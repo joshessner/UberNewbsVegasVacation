@@ -14,15 +14,52 @@ body {
 
 h1, h2 {
     color: #2c3e50;
+    width: 100%;
 }
 
-div {
-    margin: 10px 0;
-    padding: 10px;
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-card {
     background-color: #fff;
     border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-card strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.game-card .spread {
+    color: #666;
+    font-size: 0.9em;
 }
 
 hr {
-    border: 1px solid #ddd;
+    display: none; /* Removing horizontal rules as we're using cards now */
+}
+
+/* Container for both game sections */
+.games-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
 }
