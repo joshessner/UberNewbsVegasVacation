@@ -21,30 +21,6 @@ function updateCountdown() {
 
 const countdownInterval = setInterval(updateCountdown, 1000);
 
-// Countdown Timer for March 16, 2025
-const countdownElement = document.getElementById('countdown');
-const targetDate = new Date('March 16, 2025 00:00:00').getTime();
-
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-    if (distance < 0) {
-        clearInterval(countdownInterval);
-        countdownElement.innerHTML = "Event has passed!";
-    }
-}
-
-const countdownInterval = setInterval(updateCountdown, 1000);
-
-
 // Fetch NBA games with Odds API
 const apiKey = '2d854c2e73c654efe5ff74c8b59f6738';  // Replace with your API key
 const nbaGamesElement = document.getElementById('nba-games');
@@ -91,5 +67,5 @@ function displayNBAOdds(games) {
     });
 }
 
+// Initial fetch of NBA odds
 fetchNBAOdds();
-
